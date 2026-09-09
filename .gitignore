@@ -1,5 +1,6 @@
 # =============================================================================
-# ENTERPRISE GRADE .GITIGNORE (geovision-backend)
+# ENTERPRISE GRADE .GITIGNORE
+# GeoVision SR (Nexaura) - Fullstack & Spring Boot Enterprise Repository
 # =============================================================================
 
 # -----------------------------------------------------------------------------
@@ -43,8 +44,6 @@ bin/
 *.tar.gz
 *.rar
 .mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
 # -----------------------------------------------------------------------------
 # 3. Logs & Diagnostic Traces
@@ -52,6 +51,10 @@ bin/
 logs/
 *.log
 *.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 hs_err_pid*
 replay_pid*
 
@@ -63,6 +66,7 @@ replay_pid*
 *.iws
 *.iml
 *.ipr
+out/
 .idea_modules/
 
 # Eclipse / Spring Tool Suite (STS)
@@ -95,7 +99,18 @@ replay_pid*
 # -----------------------------------------------------------------------------
 # 5. Operating System Junk
 # -----------------------------------------------------------------------------
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+
+# Windows
 Thumbs.db
 Thumbs.db:encryptable
 ehthumbs.db
@@ -103,6 +118,8 @@ ehthumbs_vista.db
 *.stackdump
 [Dd]esktop.ini
 $RECYCLE.BIN/
+
+# Linux
 *~
 .fuse_hidden*
 .directory
@@ -127,10 +144,23 @@ temp/
 *.bak
 *.swp
 *.swo
+*~
 .cache/
 
 # -----------------------------------------------------------------------------
-# 8. Docker
+# 8. Docker & Containerization
 # -----------------------------------------------------------------------------
 .docker/
 docker-compose.override.yml
+
+# -----------------------------------------------------------------------------
+# 9. Frontend / Node (Client)
+# -----------------------------------------------------------------------------
+node_modules/
+.npm/
+.yarn/
+.next/
+.nuxt/
+.astro/
+coverage/
+.turbo/
