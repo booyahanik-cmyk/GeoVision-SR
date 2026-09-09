@@ -161,7 +161,7 @@ export const ParcelIntelligenceView: React.FC<ParcelIntelligenceViewProps> = ({
               SwinIR 4× Super-Resolved
             </span>
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-300 mt-0.5">
             Boundary verification, land use zoning compliance, and structural expansion detection.
           </p>
         </div>
@@ -223,7 +223,7 @@ export const ParcelIntelligenceView: React.FC<ParcelIntelligenceViewProps> = ({
                 <Layers className="w-3.5 h-3.5" />
                 <span>Cadastral Vector Boundaries</span>
               </span>
-              <span className="text-slate-400 text-[11px] font-mono">Click parcel to inspect</span>
+              <span className="text-slate-300 text-xs font-sans">Click parcel to inspect</span>
             </div>
             <div className="relative w-full h-76 rounded-xl overflow-hidden border border-cyan-500/20 bg-[#050811] shadow-[inset_0_0_20px_rgba(0,0,0,0.6)]">
               <div ref={mapContainerRef} className="w-full h-full" />
@@ -236,7 +236,7 @@ export const ParcelIntelligenceView: React.FC<ParcelIntelligenceViewProps> = ({
               <h2 className="text-xs font-bold text-white uppercase tracking-wider">
                 Audited Parcels ({filteredParcels.length})
               </h2>
-              <span className="text-[10px] font-mono text-slate-400">
+              <span className="text-[11px] font-sans text-slate-300 font-medium">
                 Sorted by Cadastral Index
               </span>
             </div>
@@ -256,9 +256,9 @@ export const ParcelIntelligenceView: React.FC<ParcelIntelligenceViewProps> = ({
               <table className="w-full text-left text-xs border-collapse" aria-label="Audited cadastral parcels for the current area of interest">
                 <caption className="sr-only">Cadastral parcels with zoning, area, detected buildings, vegetation index, and audit status</caption>
                 <thead>
-                  <tr className="border-b border-slate-800 text-slate-400 bg-slate-900/50">
-                    <th scope="col" className="py-2.5 px-3 rounded-l-lg font-medium">Code</th>
-                    <th scope="col" className="py-2.5 px-2 font-medium">Zoning</th>
+                  <tr className="border-b border-slate-800 text-slate-300 bg-slate-900/60">
+                    <th scope="col" className="py-2.5 px-3 rounded-l-lg font-semibold">Code</th>
+                    <th scope="col" className="py-2.5 px-2 font-semibold">Zoning</th>
                     <th scope="col" className="py-2.5 px-2 font-medium">Area</th>
                     <th scope="col" className="py-2.5 px-2 font-medium">Buildings</th>
                     <th scope="col" className="py-2.5 px-2 font-medium">NDVI</th>
@@ -316,7 +316,7 @@ export const ParcelIntelligenceView: React.FC<ParcelIntelligenceViewProps> = ({
               {/* Header */}
               <div className="flex items-start justify-between border-b border-slate-800/80 pb-3.5">
                 <div>
-                  <div className="text-[10px] uppercase font-mono tracking-wider text-cyan-400 font-medium">
+                  <div className="text-[11px] uppercase font-sans tracking-wider text-cyan-400 font-semibold">
                     Audited Parcel Profile
                   </div>
                   <h2 className="text-xl font-extrabold font-mono text-white mt-0.5 tracking-tight">
@@ -341,21 +341,21 @@ export const ParcelIntelligenceView: React.FC<ParcelIntelligenceViewProps> = ({
               {/* Boundary & Zoning */}
               <div className="grid grid-cols-2 gap-2.5 text-xs">
                 <div className="glass-card p-3 rounded-xl border border-cyan-500/15">
-                  <span className="text-[10px] text-slate-400 uppercase font-medium block">Total Area</span>
+                  <span className="text-xs text-slate-300 uppercase font-semibold block">Total Area</span>
                   <span className="text-base font-bold font-mono text-white mt-0.5 block">
                     {activeParcel.areaHectares} ha
                   </span>
-                  <span className="text-[10px] font-mono text-slate-400">
+                  <span className="text-[11px] font-sans text-slate-300">
                     {(activeParcel.areaHectares * 10000).toLocaleString()} m²
                   </span>
                 </div>
 
                 <div className="glass-card p-3 rounded-xl border border-cyan-500/15">
-                  <span className="text-[10px] text-slate-400 uppercase font-medium block">Land Use Zoning</span>
+                  <span className="text-xs text-slate-300 uppercase font-semibold block">Land Use Zoning</span>
                   <span className="text-base font-semibold text-cyan-300 mt-0.5 block truncate">
                     {activeParcel.zoning}
                   </span>
-                  <span className="text-[10px] font-mono text-slate-400">
+                  <span className="text-[11px] font-sans text-slate-300">
                     Perimeter: {activeParcel.perimeterM} m
                   </span>
                 </div>
@@ -370,25 +370,25 @@ export const ParcelIntelligenceView: React.FC<ParcelIntelligenceViewProps> = ({
 
                 <div className="grid grid-cols-2 gap-2.5 text-xs">
                   <div className="glass-card p-2.5 rounded-xl border border-slate-800">
-                    <span className="text-[10px] text-slate-400 uppercase block">Buildings (YOLO)</span>
+                    <span className="text-xs text-slate-300 uppercase font-semibold block">Buildings (YOLO)</span>
                     <span className="text-sm font-bold font-mono text-amber-300">
                       {activeParcel.buildingCount} Structures
                     </span>
                   </div>
                   <div className="glass-card p-2.5 rounded-xl border border-slate-800">
-                    <span className="text-[10px] text-slate-400 uppercase block">Impervious Cover</span>
+                    <span className="text-xs text-slate-300 uppercase font-semibold block">Impervious Cover</span>
                     <span className="text-sm font-bold font-mono text-slate-200">
                       {activeParcel.builtCoveragePercent}%
                     </span>
                   </div>
                   <div className="glass-card p-2.5 rounded-xl border border-slate-800">
-                    <span className="text-[10px] text-slate-400 uppercase block">NDVI Vegetation</span>
+                    <span className="text-xs text-slate-300 uppercase font-semibold block">NDVI Vegetation</span>
                     <span className="text-sm font-bold font-mono text-emerald-400">
                       {activeParcel.ndviMean}
                     </span>
                   </div>
                   <div className="glass-card p-2.5 rounded-xl border border-slate-800">
-                    <span className="text-[10px] text-slate-400 uppercase block">Super-Resolution</span>
+                    <span className="text-xs text-slate-300 uppercase font-semibold block">Super-Resolution</span>
                     <span className="text-sm font-bold text-cyan-300">
                       SwinIR 2.5m
                     </span>
@@ -426,7 +426,7 @@ export const ParcelIntelligenceView: React.FC<ParcelIntelligenceViewProps> = ({
               </div>
             </div>
           ) : (
-            <div className="glass-panel rounded-2xl p-8 text-center text-slate-400 text-xs border border-slate-800">
+            <div className="glass-panel rounded-2xl p-8 text-center text-slate-300 text-xs font-medium border border-slate-800">
               Select a parcel from the table or map to inspect details.
             </div>
           )}

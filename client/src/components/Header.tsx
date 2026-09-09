@@ -7,7 +7,6 @@ import {
   Cpu, 
   LandPlot, 
   BarChart3, 
-  Satellite,
   Menu,
   X
 } from 'lucide-react';
@@ -54,15 +53,15 @@ export const Header: React.FC<HeaderProps> = ({
           className="flex items-center gap-2 sm:gap-2.5 text-left group focus:outline-none cursor-pointer transition-transform active:scale-[0.98] shrink-0 whitespace-nowrap"
           aria-label="Navigate to GeoVision Overview"
         >
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-cyan-950/80 to-slate-900 border border-cyan-400/30 flex items-center justify-center text-cyan-400 group-hover:border-cyan-400 group-hover:shadow-[0_0_12px_rgba(6,182,212,0.4)] transition-all duration-300 shrink-0">
-            <Satellite className="w-3.5 h-3.5 text-cyan-400 group-hover:rotate-12 transition-transform duration-300" />
-          </div>
+          <img
+            src="/assets/logo.png"
+            alt="GeoVision-SR Logo"
+            className="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0 mix-blend-screen select-none pointer-events-none"
+            style={{ mixBlendMode: 'screen' }}
+          />
           <div className="flex items-center gap-1.5 whitespace-nowrap">
             <span className="text-sm sm:text-base font-bold tracking-tight text-white font-sans whitespace-nowrap">
               GeoVision<span className="text-cyan-400 font-medium">-SR</span>
-            </span>
-            <span className="hidden sm:inline-block px-1.5 py-0.5 text-[9px] font-mono font-semibold rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-[0_0_8px_rgba(6,182,212,0.2)]">
-              v2.5
             </span>
           </div>
         </button>
@@ -129,7 +128,7 @@ export const Header: React.FC<HeaderProps> = ({
           )}
 
           {/* SwinIR Active Telemetry Pill (Desktop) */}
-          <div className="hidden xl:flex items-center gap-2 px-2.5 py-1 rounded-full bg-cyan-950/30 border border-cyan-500/20 text-[11px] text-cyan-300 font-mono">
+          <div className="hidden xl:flex items-center gap-2 px-2.5 py-1 rounded-full bg-cyan-950/30 border border-cyan-500/20 text-xs text-cyan-300 font-sans font-medium">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
             <span>SwinIR Pipeline</span>
           </div>

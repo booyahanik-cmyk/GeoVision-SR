@@ -23,7 +23,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           
           {/* High-tech telemetry badge */}
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-400/30 text-cyan-300 text-xs font-mono backdrop-blur-md shadow-[0_0_18px_rgba(6,182,212,0.18)]">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-400/30 text-cyan-300 text-xs font-sans font-medium backdrop-blur-md shadow-[0_0_18px_rgba(6,182,212,0.18)]">
               <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
               <span>Sentinel-2 • SwinIR Deep Learning</span>
             </div>
@@ -44,12 +44,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
           {/* Area of Interest (AOI) Selector with Glass Tile Aesthetics */}
           <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs font-medium text-slate-400">
+            <div className="flex items-center justify-between text-xs font-medium text-slate-300">
               <span className="flex items-center gap-1.5">
                 <Globe2 className="w-3.5 h-3.5 text-cyan-400" />
                 <span>Select Target Area of Interest (AOI)</span>
               </span>
-              <span className="text-[11px] font-mono text-cyan-400/80">{AREAS_OF_INTEREST.length} Available</span>
+              <span className="text-xs font-sans font-medium text-cyan-400">{AREAS_OF_INTEREST.length} Available</span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {AREAS_OF_INTEREST.map((aoi) => {
@@ -61,11 +61,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     className={`px-3 py-2.5 rounded-xl text-xs font-medium text-left sm:text-center transition-all duration-200 cursor-pointer border ${
                       isSelected
                         ? 'bg-gradient-to-b from-cyan-950/80 to-slate-900/90 text-cyan-200 border-cyan-400/60 shadow-[0_0_16px_rgba(6,182,212,0.25),inset_0_1px_0_rgba(255,255,255,0.15)] ring-1 ring-cyan-400/30'
-                        : 'glass-card text-slate-400 border-slate-800/80 hover:text-slate-200 hover:border-slate-700/80 hover:bg-slate-850/40'
+                        : 'glass-card text-slate-300 border-slate-800/80 hover:text-white hover:border-slate-700/80 hover:bg-slate-850/40'
                     }`}
                   >
                     <div className="truncate font-medium">{aoi.name.split('&')[0].trim()}</div>
-                    <div className="text-[10px] text-slate-500 truncate mt-0.5 font-mono">{aoi.country}</div>
+                    <div className="text-[11px] text-slate-400 truncate mt-0.5 font-sans font-medium">{aoi.country}</div>
                   </button>
                 );
               })}

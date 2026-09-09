@@ -62,38 +62,38 @@ export const AIAnalysisView: React.FC<AIAnalysisViewProps> = ({ activeAOI }) => 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
         <div className="glass-card rounded-xl p-3.5 border border-cyan-500/20 hover:border-cyan-400/40 transition-all group">
           <div className="flex items-center justify-between">
-            <div className="text-xs font-medium text-slate-400">SwinIR</div>
+            <div className="text-xs font-semibold text-slate-300">SwinIR</div>
             <Sparkles className="w-3.5 h-3.5 text-cyan-400 group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-sm font-bold text-cyan-300 mt-1">4× Super Resolution</div>
-          <div className="text-[10px] text-slate-400 font-mono mt-0.5">Eval: PSNR 34.2 dB • SSIM 0.91</div>
+          <div className="text-xs text-slate-300 mt-0.5 font-sans">Eval: PSNR 34.2 dB • SSIM 0.91</div>
         </div>
 
         <div className="glass-card rounded-xl p-3.5 border border-amber-500/20 hover:border-amber-400/40 transition-all group">
           <div className="flex items-center justify-between">
-            <div className="text-xs font-medium text-slate-400">YOLOv11x</div>
+            <div className="text-xs font-semibold text-slate-300">YOLOv11x</div>
             <Building2 className="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-sm font-bold text-amber-300 mt-1">OBB Object Detection</div>
-          <div className="text-[10px] text-slate-400 font-mono mt-0.5">Eval: mAP50 88.4%</div>
+          <div className="text-xs text-slate-300 mt-0.5 font-sans">Eval: mAP50 88.4%</div>
         </div>
 
         <div className="glass-card rounded-xl p-3.5 border border-emerald-500/20 hover:border-emerald-400/40 transition-all group">
           <div className="flex items-center justify-between">
-            <div className="text-xs font-medium text-slate-400">U-Net ResNet101</div>
+            <div className="text-xs font-semibold text-slate-300">U-Net ResNet101</div>
             <PieChart className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-sm font-bold text-emerald-300 mt-1">Land Cover Segmentation</div>
-          <div className="text-[10px] text-slate-400 font-mono mt-0.5">Eval: Mean IoU 79.6%</div>
+          <div className="text-xs text-slate-300 mt-0.5 font-sans">Eval: Mean IoU 79.6%</div>
         </div>
 
         <div className="glass-card rounded-xl p-3.5 border border-indigo-500/20 hover:border-indigo-400/40 transition-all group">
           <div className="flex items-center justify-between">
-            <div className="text-xs font-medium text-slate-400">Confidence Engine</div>
+            <div className="text-xs font-semibold text-slate-300">Confidence Engine</div>
             <ShieldCheck className="w-3.5 h-3.5 text-indigo-400 group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-sm font-bold text-slate-100 mt-1">Spatial Uncertainty</div>
-          <div className="text-[10px] text-slate-400 font-mono mt-0.5">Target Variance &lt; 4%</div>
+          <div className="text-xs text-slate-300 mt-0.5 font-sans">Target Variance &lt; 4%</div>
         </div>
       </div>
 
@@ -106,7 +106,7 @@ export const AIAnalysisView: React.FC<AIAnalysisViewProps> = ({ activeAOI }) => 
               <Eye className="w-4 h-4 text-cyan-400" />
               <span className="font-bold text-white tracking-wide">Interactive Super-Resolution Comparison</span>
             </div>
-            <span className="text-slate-400 text-[11px] font-mono bg-cyan-950/40 px-2.5 py-1 rounded-full border border-cyan-500/20">
+            <span className="text-slate-300 text-xs font-sans font-medium bg-cyan-950/40 px-2.5 py-1 rounded-full border border-cyan-500/20">
               Drag divider ⬌ horizontally
             </span>
           </div>
@@ -226,14 +226,14 @@ export const AIAnalysisView: React.FC<AIAnalysisViewProps> = ({ activeAOI }) => 
                 <Building2 className="w-4 h-4" />
                 <span>Buildings (YOLOv11)</span>
               </div>
-              <span className="text-[10px] font-mono text-amber-300 bg-amber-950/50 px-2 py-0.5 rounded-full border border-amber-500/30">
+              <span className="text-[10px] font-sans font-medium text-amber-300 bg-amber-950/50 px-2 py-0.5 rounded-full border border-amber-500/30">
                 Active
               </span>
             </div>
             <div className="text-2xl font-extrabold font-mono text-white tracking-tight">
               {buildings.length}
             </div>
-            <div className="text-[11px] text-slate-400">
+            <div className="text-xs text-slate-300 font-medium">
               Oriented bounding boxes segmented
             </div>
           </div>
@@ -245,14 +245,14 @@ export const AIAnalysisView: React.FC<AIAnalysisViewProps> = ({ activeAOI }) => 
                 <Route className="w-4 h-4" />
                 <span>Road Network</span>
               </div>
-              <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950/50 px-2 py-0.5 rounded-full border border-cyan-500/30">
+              <span className="text-[10px] font-sans font-medium text-cyan-300 bg-cyan-950/50 px-2 py-0.5 rounded-full border border-cyan-500/30">
                 Vectorized
               </span>
             </div>
             <div className="text-2xl font-extrabold font-mono text-white tracking-tight">
-              {totalRoadKm} <span className="text-sm font-normal text-slate-400">km</span>
+              {totalRoadKm} <span className="text-sm font-normal text-slate-300">km</span>
             </div>
-            <div className="text-[11px] text-slate-400">
+            <div className="text-xs text-slate-300 font-medium">
               Arterial & local thoroughfares
             </div>
           </div>
@@ -264,7 +264,7 @@ export const AIAnalysisView: React.FC<AIAnalysisViewProps> = ({ activeAOI }) => 
                 <PieChart className="w-4 h-4" />
                 <span>Land Cover (U-Net)</span>
               </div>
-              <span className="text-[10px] font-mono text-emerald-300 bg-emerald-950/50 px-2 py-0.5 rounded-full border border-emerald-500/30">
+              <span className="text-[10px] font-sans font-medium text-emerald-300 bg-emerald-950/50 px-2 py-0.5 rounded-full border border-emerald-500/30">
                 5 Classes
               </span>
             </div>
@@ -275,9 +275,9 @@ export const AIAnalysisView: React.FC<AIAnalysisViewProps> = ({ activeAOI }) => 
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-sm shadow-xs" style={{ backgroundColor: lc.hex }} />
-                      <span className="text-slate-300 font-medium">{lc.name}</span>
+                      <span className="text-slate-200 font-medium">{lc.name}</span>
                     </div>
-                    <span className="text-slate-400 font-mono text-[11px]">{lc.percentage}%</span>
+                    <span className="text-slate-200 font-sans text-xs font-semibold">{lc.percentage}%</span>
                   </div>
                   <div className="w-full h-1.5 bg-slate-800/80 rounded-full overflow-hidden">
                     <div

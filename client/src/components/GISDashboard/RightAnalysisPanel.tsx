@@ -60,7 +60,7 @@ export const RightAnalysisPanel: React.FC<RightAnalysisPanelProps> = ({
               {/* Parcel Header Badge */}
               <div className="flex items-start justify-between">
                 <div>
-                  <div className="text-[10px] uppercase font-mono tracking-wider text-cyan-400/90 font-medium">
+                  <div className="text-[11px] uppercase font-sans tracking-wider text-cyan-400 font-semibold">
                     Cadastral Unit
                   </div>
                   <div className="text-base font-bold font-mono text-white mt-0.5 tracking-tight">
@@ -83,28 +83,28 @@ export const RightAnalysisPanel: React.FC<RightAnalysisPanelProps> = ({
 
               <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800/80">
                 <div className="glass-card p-2 rounded-lg border border-slate-800">
-                  <div className="text-[10px] text-slate-400">Zoning</div>
+                  <div className="text-[11px] text-slate-300 font-medium">Zoning</div>
                   <div className="text-xs text-cyan-300 font-semibold mt-0.5 truncate">{selectedParcel.zoning}</div>
                 </div>
                 <div className="glass-card p-2 rounded-lg border border-slate-800">
-                  <div className="text-[10px] text-slate-400">Area</div>
+                  <div className="text-[11px] text-slate-300 font-medium">Area</div>
                   <div className="text-xs font-mono text-slate-100 font-semibold mt-0.5">{selectedParcel.areaHectares} ha</div>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div className="glass-card p-2 rounded-lg border border-slate-800">
-                  <div className="text-[10px] text-slate-400">Buildings</div>
+                  <div className="text-[11px] text-slate-300 font-medium">Buildings</div>
                   <div className="text-xs font-mono text-amber-300 font-semibold mt-0.5">{selectedParcel.buildingCount} detected</div>
                 </div>
                 <div className="glass-card p-2 rounded-lg border border-slate-800">
-                  <div className="text-[10px] text-slate-400">NDVI Mean</div>
+                  <div className="text-[11px] text-slate-300 font-medium">NDVI Mean</div>
                   <div className="text-xs font-mono text-emerald-400 font-semibold mt-0.5">{selectedParcel.ndviMean}</div>
                 </div>
               </div>
 
               <div className="pt-2 border-t border-slate-800/80">
-                <div className="text-[10px] text-slate-400">Change Observation</div>
+                <div className="text-[11px] text-slate-300 font-medium">Change Observation</div>
                 <div className="text-xs text-slate-200 mt-0.5 leading-relaxed">
                   {selectedParcel.changeDetected.hasChange
                     ? `${selectedParcel.changeDetected.type} (+${selectedParcel.changeDetected.deltaM2} m² expansion)`
@@ -127,8 +127,8 @@ export const RightAnalysisPanel: React.FC<RightAnalysisPanelProps> = ({
           <div className="space-y-3.5">
             <div className="glass-card rounded-xl p-3.5 space-y-3 border border-cyan-500/10">
               <div className="flex items-center justify-between pb-2 border-b border-slate-800/80">
-                <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400">Detection Summary</span>
-                <span className="text-[10px] font-mono text-cyan-400 bg-cyan-950/40 px-1.5 py-0.5 rounded border border-cyan-500/30">
+                <span className="text-[11px] uppercase font-sans tracking-wider text-slate-300 font-semibold">Detection Summary (Demo)</span>
+                <span className="text-[10px] font-sans font-medium text-cyan-400 bg-cyan-950/40 px-1.5 py-0.5 rounded border border-cyan-500/30">
                   Sentinel-2
                 </span>
               </div>
@@ -136,7 +136,7 @@ export const RightAnalysisPanel: React.FC<RightAnalysisPanelProps> = ({
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Building2 className="w-3.5 h-3.5 text-amber-400" />
-                  <span className="text-xs text-slate-300">Buildings (YOLOv11)</span>
+                  <span className="text-xs text-slate-200">Buildings (YOLOv11)</span>
                 </div>
                 <span className="text-sm font-bold font-mono text-white">{buildings.length}</span>
               </div>
@@ -144,7 +144,7 @@ export const RightAnalysisPanel: React.FC<RightAnalysisPanelProps> = ({
               <div className="flex items-center justify-between pt-2 border-t border-slate-800/60">
                 <div className="flex items-center gap-2">
                   <Route className="w-3.5 h-3.5 text-cyan-400" />
-                  <span className="text-xs text-slate-300">Road Network</span>
+                  <span className="text-xs text-slate-200">Road Network</span>
                 </div>
                 <span className="text-sm font-bold font-mono text-white">{totalRoadLengthKm} km</span>
               </div>
@@ -152,7 +152,7 @@ export const RightAnalysisPanel: React.FC<RightAnalysisPanelProps> = ({
               <div className="flex items-center justify-between pt-2 border-t border-slate-800/60">
                 <div className="flex items-center gap-2">
                   <PieChart className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="text-xs text-slate-300">Land Cover Classes</span>
+                  <span className="text-xs text-slate-200">Land Cover Classes</span>
                 </div>
                 <span className="text-sm font-bold font-mono text-white">{LAND_COVER_CLASSES.length}</span>
               </div>
@@ -160,13 +160,13 @@ export const RightAnalysisPanel: React.FC<RightAnalysisPanelProps> = ({
               <div className="flex items-center justify-between pt-2 border-t border-slate-800/60">
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
-                  <span className="text-xs text-slate-300">Model Inference</span>
+                  <span className="text-xs text-slate-200">Model Inference</span>
                 </div>
                 <span className="text-xs font-mono font-semibold text-cyan-300">SwinIR 4×</span>
               </div>
             </div>
 
-            <div className="glass-card p-3 rounded-xl border border-dashed border-slate-700/80 text-[11px] text-slate-400 text-center leading-relaxed">
+            <div className="glass-card p-3 rounded-xl border border-dashed border-slate-700/80 text-xs text-slate-300/90 text-center leading-relaxed">
               Click any parcel boundary on the central map to inspect detailed cadastral attributes and compliance status.
             </div>
           </div>
