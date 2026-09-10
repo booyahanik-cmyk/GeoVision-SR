@@ -2,6 +2,7 @@ package team.nexaura.geovision_backend.mapper;
 
 import org.springframework.stereotype.Component;
 import team.nexaura.geovision_backend.dto.request.UserRegisterRequestDto;
+import team.nexaura.geovision_backend.dto.response.UserProfileResponseDto;
 import team.nexaura.geovision_backend.dto.response.UserRegisterResponseDto;
 import team.nexaura.geovision_backend.entity.User;
 
@@ -24,6 +25,19 @@ public class UserMapper {
         response.setId(user.getId());
         response.setName(user.getName());
         response.setEmail(user.getEmail());
+        response.setCreatedAt(user.getCreatedAt());
+        response.setUpdatedAt(user.getUpdatedAt());
+
+        return response;
+    }
+
+    public UserProfileResponseDto entityToProfileResponseDtoMapper(User user) {
+        UserProfileResponseDto response = new UserProfileResponseDto();
+
+        response.setId(user.getId());
+        response.setName(user.getName());
+        response.setEmail(user.getEmail());
+        response.setRole(user.getRole());
         response.setCreatedAt(user.getCreatedAt());
         response.setUpdatedAt(user.getUpdatedAt());
 

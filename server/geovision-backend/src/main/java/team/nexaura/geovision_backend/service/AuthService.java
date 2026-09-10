@@ -6,6 +6,7 @@ import team.nexaura.geovision_backend.dto.request.LoginRequestDto;
 import team.nexaura.geovision_backend.dto.request.UserRegisterRequestDto;
 import team.nexaura.geovision_backend.dto.response.LoginResponseDto;
 import team.nexaura.geovision_backend.dto.response.UserRegisterResponseDto;
+import team.nexaura.geovision_backend.entity.Role;
 import team.nexaura.geovision_backend.entity.User;
 import team.nexaura.geovision_backend.exception.DuplicateResourceException;
 import team.nexaura.geovision_backend.exception.InvalidCredentialsException;
@@ -47,6 +48,7 @@ public class AuthService {
 
         User userToBeSaved = userMapper.requestDtoToEntityMapper(requestUser);
         userToBeSaved.setPassword(passwordEncoder.encode(requestUser.getPassword()));
+        userToBeSaved.setRole(Role.USER);
         User savedUser = userRepository.save(userToBeSaved);
 
         return userMapper.entityToResponseDtoMapper(savedUser);

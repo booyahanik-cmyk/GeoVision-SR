@@ -93,4 +93,22 @@ public class GlobalException {
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(exceptionResponse);
     }
+
+    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+    public ResponseEntity<ExceptionResponseDto> accessDeniedExceptionHandler(
+            org.springframework.security.access.AccessDeniedException e, HttpServletRequest request
+    ) {
+        ExceptionResponseDto exceptionResponse =
+                new ExceptionResponseDto(
+                        LocalDateTime.now(),
+                        HttpStatus.FORBIDDEN.value(),
+                        HttpStatus.FORBIDDEN.getReasonPhrase(),
+                        "Access denied: You do not have permission to access this resource",
+                        request.getRequestURI()
+                );
+
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(exceptionResponse);
+    }
 }
