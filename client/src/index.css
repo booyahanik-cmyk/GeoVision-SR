@@ -1,0 +1,471 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #060913;
+    color: #E2E8F0;
+    overflow-x: hidden;
+  }
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom scrollbars with neon cyan-blue subtle glow */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(6, 10, 20, 0.6);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(30, 46, 74, 0.8);
+  border-radius: 9999px;
+  border: 1px solid rgba(56, 189, 248, 0.1);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(14, 165, 233, 0.6);
+  box-shadow: 0 0 8px rgba(14, 165, 233, 0.5);
+}
+
+/* Leaflet scientific dark map theme overrides */
+#leaflet-map-container,
+.leaflet-container {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  position: relative !important;
+  background-color: #060A14 !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+.leaflet-bar {
+  border: 1px solid rgba(56, 189, 248, 0.2) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+.leaflet-bar a {
+  background-color: rgba(10, 16, 30, 0.85) !important;
+  color: #94A3B8 !important;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.15) !important;
+  transition: all 0.2s ease !important;
+}
+.leaflet-bar a:hover {
+  background-color: rgba(22, 34, 59, 0.95) !important;
+  color: #38BDF8 !important;
+}
+.leaflet-popup-content-wrapper {
+  background-color: rgba(10, 18, 36, 0.9) !important;
+  color: #F1F5F9 !important;
+  border: 1px solid rgba(56, 189, 248, 0.25) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 16px rgba(6, 182, 212, 0.15) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  padding: 0 !important;
+}
+.leaflet-popup-content {
+  margin: 10px 14px !important;
+}
+.leaflet-popup-tip {
+  background-color: rgba(10, 18, 36, 0.9) !important;
+  border: 1px solid rgba(56, 189, 248, 0.25) !important;
+}
+
+/* Geospatial & Aerospace UI Aesthetics */
+.geo-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(14, 165, 233, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(14, 165, 233, 0.05) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.geo-dot-bg {
+  background-image: radial-gradient(rgba(56, 189, 248, 0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Glassmorphism System */
+.glass-panel {
+  background: rgba(10, 17, 34, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(56, 189, 248, 0.12);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.07),
+    0 8px 32px -4px rgba(0, 0, 0, 0.45);
+}
+
+.glass-panel-elevated {
+  background: rgba(13, 22, 42, 0.82);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+    0 12px 40px -8px rgba(0, 0, 0, 0.55),
+    0 0 24px -6px rgba(6, 182, 212, 0.12);
+}
+
+.glass-card {
+  background: rgba(12, 20, 38, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.12);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
+    0 4px 20px -2px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-interactive {
+  background: rgba(12, 20, 38, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.12);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
+    0 4px 20px -2px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-interactive:hover {
+  background: rgba(16, 27, 50, 0.82);
+  border-color: rgba(56, 189, 248, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+    0 12px 30px -4px rgba(0, 0, 0, 0.5),
+    0 0 20px -4px rgba(6, 182, 212, 0.22);
+}
+
+.glass-card-active {
+  background: rgba(14, 30, 56, 0.85);
+  border-color: rgba(34, 211, 238, 0.5);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+    0 8px 24px -4px rgba(0, 0, 0, 0.5),
+    0 0 20px -2px rgba(6, 182, 212, 0.3);
+}
+
+.glass-input {
+  background: rgba(8, 14, 26, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(56, 189, 248, 0.16);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+
+.glass-input:focus {
+  background: rgba(10, 18, 34, 0.85);
+  border-color: rgba(34, 211, 238, 0.5);
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.4),
+    0 0 16px -2px rgba(6, 182, 212, 0.25);
+  outline: none;
+}
+
+/* Buttons with Restrained Futuristic Glow */
+.btn-glow-cyan {
+  background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
+  color: #04101e;
+  font-weight: 600;
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+    0 4px 16px -2px rgba(6, 182, 212, 0.35);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-glow-cyan:hover {
+  background: linear-gradient(135deg, #22d3ee 0%, #0ea5e9 100%);
+  transform: translateY(-1px);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+    0 8px 24px -2px rgba(6, 182, 212, 0.5);
+}
+
+.btn-glow-cyan:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+}
+
+.btn-glass {
+  background: rgba(14, 24, 46, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  color: #E2E8F0;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+}
+
+.btn-glass:hover {
+  background: rgba(20, 35, 66, 0.85);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #FFFFFF;
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+    0 4px 16px -2px rgba(6, 182, 212, 0.15);
+}
+
+.btn-glass:active {
+  transform: scale(0.98);
+}
+
+/* Animations & Ambient Drift */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(1.08);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes float-drift-1 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -20px) scale(1.06);
+  }
+  66% {
+    transform: translate(-20px, 25px) scale(0.95);
+  }
+}
+
+@keyframes float-drift-2 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(-35px, 20px) scale(0.96);
+  }
+  66% {
+    transform: translate(25px, -30px) scale(1.07);
+  }
+}
+
+.animate-float-1 {
+  animation: float-drift-1 18s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float-drift-2 22s ease-in-out infinite;
+}
+
+/* Subtle Shimmer for High-End Accents */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #FFFFFF 0%, #38BDF8 50%, #FFFFFF 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 6s linear infinite;
+}
+
+/* ============================================
+   ACCESSIBILITY: Focus Visibility (WCAG 2.1)
+   ============================================ */
+*:focus-visible {
+  outline: 2px solid rgba(34, 211, 238, 0.7);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Remove outline for mouse users — only show for keyboard */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Skip-to-content link — visually hidden until focused */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 8px 20px;
+  background: rgba(6, 182, 212, 0.95);
+  color: #04101e;
+  font-weight: 700;
+  font-size: 13px;
+  border-radius: 0 0 8px 8px;
+  transition: top 0.2s ease;
+  text-decoration: none;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* ============================================
+   ACCESSIBILITY: Reduced Motion Preference
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY: Toggle Switch (role="switch")
+   ============================================ */
+.toggle-switch {
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.toggle-switch:focus-visible {
+  outline: 2px solid rgba(34, 211, 238, 0.7);
+  outline-offset: 3px;
+  border-radius: 9999px;
+}
+
+/* ============================================
+   PERFORMANCE: Static status indicator
+   Replaces continuous animate-ping
+   ============================================ */
+.status-dot-static {
+  position: relative;
+  display: inline-flex;
+  width: 8px;
+  height: 8px;
+}
+
+.status-dot-static::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: currentColor;
+  opacity: 0.35;
+  transform: scale(1.5);
+}
+
+.status-dot-static::after {
+  content: '';
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: currentColor;
+}
+
+/* Table overflow scroll hint gradient */
+.table-scroll-hint {
+  position: relative;
+}
+
+.table-scroll-hint::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 32px;
+  background: linear-gradient(to right, transparent, rgba(8, 13, 26, 0.85));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.table-scroll-hint.has-overflow::after {
+  opacity: 1;
+}
+
+/* ============================================
+   Toast / Notification Animations
+   ============================================ */
+@keyframes toast-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.toast-fade-in {
+  animation: toast-fade-in 0.2s ease-out forwards;
+}
+
+/* ============================================
+   Chart Info Popup
+   ============================================ */
+@keyframes info-popup-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.info-popup-enter {
+  animation: info-popup-enter 0.18s ease-out forwards;
+}
+
+/* ============================================
+   Chart Legend & Supporting Element Subtle Fade-In
+   ============================================ */
+@keyframes chart-element-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.chart-fade-in {
+  animation: chart-element-fade-in 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chart-fade-in {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* Cesium credit, ion logo, and attribution overlay removal */
+.cesium-viewer-bottomContainer,
+.cesium-widget-credits,
+.cesium-credit-logoContainer,
+.cesium-credit-textContainer,
+.cesium-credit-expand-link {
+  display: none !important;
+}

@@ -1,9 +1,22 @@
 spring:
   application:
     name: geovision-backend
-  profiles:
-    active: ${SPRING_PROFILES_ACTIVE:local}
+
+  datasource:
+    url: jdbc:postgresql://db.pwbjvbdsqzvmveodkllu.supabase.co:5432/postgres
+    username: postgres
+    password: SatyajitDB@1205
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    show-sql: true
+
+    properties:
+      hibernate:
+        format_sql: true
 
 jwt:
-  secret: ${JWT_SECRET}
-  expiration: ${JWT_EXPIRATION:86400000}
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+  expiration: 86400000
