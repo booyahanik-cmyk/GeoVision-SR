@@ -110,13 +110,12 @@ export const UploadModal: React.FC<UploadModalProps> = ({
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
             onDrop={handleDrop}
-            className={`border-2 border-dashed rounded-xl p-6 text-center transition-all duration-200 cursor-pointer ${
-              dragActive
-                ? 'border-cyan-400 bg-cyan-950/40 shadow-[0_0_20px_rgba(6,182,212,0.3)]'
-                : selectedFile
+            className={`border-2 border-dashed rounded-xl p-6 text-center transition-all duration-200 cursor-pointer ${dragActive
+              ? 'border-cyan-400 bg-cyan-950/40 shadow-[0_0_20px_rgba(6,182,212,0.3)]'
+              : selectedFile
                 ? 'border-emerald-500/60 bg-emerald-950/20'
                 : 'border-cyan-500/20 bg-[#080D1A]/70 hover:border-cyan-400/50 hover:bg-cyan-950/10'
-            }`}
+              }`}
           >
             <input
               type="file"
@@ -137,7 +136,7 @@ export const UploadModal: React.FC<UploadModalProps> = ({
                 {selectedFile ? selectedFile.name : 'Click to select or drag Sentinel GeoTIFF'}
               </div>
               <div className="text-[11px] text-slate-400">
-                GeoTIFF (.tif, .jp2, .zip) up to 500MB
+                GeoTIFF (.tif, .jp2, .zip, .geojson, .tiff) up to 100MB
               </div>
             </label>
           </div>
@@ -182,11 +181,10 @@ export const UploadModal: React.FC<UploadModalProps> = ({
           <button
             onClick={handleSubmit}
             disabled={!selectedFile || isProcessing}
-            className={`px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-              !selectedFile || isProcessing
-                ? 'bg-slate-850 text-slate-500 border border-slate-700 cursor-not-allowed'
-                : 'btn-glow-cyan text-slate-950 shadow-[0_0_16px_rgba(6,182,212,0.35)] active:scale-98'
-            }`}
+            className={`px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${!selectedFile || isProcessing
+              ? 'bg-slate-850 text-slate-500 border border-slate-700 cursor-not-allowed'
+              : 'btn-glow-cyan text-slate-950 shadow-[0_0_16px_rgba(6,182,212,0.35)] active:scale-98'
+              }`}
           >
             {isProcessing ? (
               <>

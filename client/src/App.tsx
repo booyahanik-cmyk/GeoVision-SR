@@ -10,6 +10,8 @@ import { ParcelIntelligenceView } from './components/ParcelIntelligence/ParcelIn
 import { DecisionSupportView } from './components/DecisionSupport/DecisionSupportView';
 import { LoginPage } from './components/Auth/LoginPage';
 import { RegisterPage } from './components/Auth/RegisterPage';
+import { ImageryListPage } from './components/Imagery/ImageryListPage';
+import { ImageryUploadPage } from './components/Imagery/ImageryUploadPage';
 import { useAuth } from './context/AuthContext';
 
 const screenOrder: ScreenType[] = [
@@ -17,6 +19,8 @@ const screenOrder: ScreenType[] = [
   'login',
   'register',
   'gis-dashboard',
+  'imagery-catalog',
+  'imagery-upload',
   'ai-analysis',
   'parcel-intelligence',
   'decision-support',
@@ -59,13 +63,23 @@ export default function App() {
   const [direction, setDirection] = useState<number>(1);
   const [activeAOI, setActiveAOI] = useState<AreaOfInterest>(AREAS_OF_INTEREST[0]);
   const [selectedParcel, setSelectedParcel] = useState<Parcel | null>(null);
+  const [targetImageryId, setTargetImageryId] = useState<number | null>(null);
 
   // Auth flow states
   const [loginNotice, setLoginNotice] = useState<string | null>(null);
   const [intendedScreen, setIntendedScreen] = useState<ScreenType>('gis-dashboard');
 
+  const handleOpenImageryInGIS = (imageryId?: number) => {
+    if (imageryId) {
+      setTargetImageryId(imageryId);
+    }
+    handleSelectScreen('gis-dashboard');
+  };
+
   const protectedScreens: ScreenType[] = [
     'gis-dashboard',
+    'imagery-catalog',
+    'imagery-upload',
     'ai-analysis',
     'parcel-intelligence',
     'decision-support',
@@ -212,6 +226,21 @@ export default function App() {
                 onSelectScreen={handleSelectScreen}
                 selectedParcel={selectedParcel}
                 onSelectParcel={setSelectedParcel}
+                initialSelectedImageryId={targetImageryId}
+              />
+            )}
+
+            {currentScreen === 'imagery-catalog' && (
+              <ImageryListPage
+                onNavigateToUpload={() => handleSelectScreen('imagery-upload')}
+                onNavigateToGIS={handleOpenImageryInGIS}
+              />
+            )}
+
+            {currentScreen === 'imagery-upload' && (
+              <ImageryUploadPage
+                onNavigateToCatalog={() => handleSelectScreen('imagery-catalog')}
+                onNavigateToGIS={handleOpenImageryInGIS}
               />
             )}
 

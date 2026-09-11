@@ -111,4 +111,58 @@ public class GlobalException {
                 .status(HttpStatus.FORBIDDEN)
                 .body(exceptionResponse);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ExceptionResponseDto> illegalArgumentExceptionHandler(
+            IllegalArgumentException e, HttpServletRequest request
+    ) {
+        ExceptionResponseDto exceptionResponse =
+                new ExceptionResponseDto(
+                        LocalDateTime.now(),
+                        HttpStatus.BAD_REQUEST.value(),
+                        HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                        e.getMessage(),
+                        request.getRequestURI()
+                );
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(exceptionResponse);
+    }
+
+    @ExceptionHandler(FileValidationException.class)
+    public ResponseEntity<ExceptionResponseDto> fileValidationExceptionHandler(
+            FileValidationException e, HttpServletRequest request
+    ) {
+        ExceptionResponseDto exceptionResponse =
+                new ExceptionResponseDto(
+                        LocalDateTime.now(),
+                        HttpStatus.BAD_REQUEST.value(),
+                        HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                        e.getMessage(),
+                        request.getRequestURI()
+                );
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(exceptionResponse);
+    }
+
+    @ExceptionHandler(org.springframework.web.multipart.MaxUploadSizeExceededException.class)
+    public ResponseEntity<ExceptionResponseDto> maxUploadSizeExceededExceptionHandler(
+            org.springframework.web.multipart.MaxUploadSizeExceededException e, HttpServletRequest request
+    ) {
+        ExceptionResponseDto exceptionResponse =
+                new ExceptionResponseDto(
+                        LocalDateTime.now(),
+                        HttpStatus.PAYLOAD_TOO_LARGE.value(),
+                        HttpStatus.PAYLOAD_TOO_LARGE.getReasonPhrase(),
+                        "File size exceeds maximum allowed upload limit (100MB)",
+                        request.getRequestURI()
+                );
+
+        return ResponseEntity
+                .status(HttpStatus.PAYLOAD_TOO_LARGE)
+                .body(exceptionResponse);
+    }
 }

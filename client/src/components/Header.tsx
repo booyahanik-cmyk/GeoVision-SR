@@ -13,7 +13,9 @@ import {
   LogIn,
   LogOut,
   User,
-  ShieldCheck
+  ShieldCheck,
+  Database,
+  UploadCloud
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -37,6 +39,8 @@ export const Header: React.FC<HeaderProps> = ({
   const navItems: { id: ScreenType; label: string; icon: React.ReactNode }[] = [
     { id: 'landing', label: 'Overview', icon: <Globe2 className="w-3.5 h-3.5" /> },
     { id: 'gis-dashboard', label: 'GIS Dashboard', icon: <Layers className="w-3.5 h-3.5" /> },
+    { id: 'imagery-catalog', label: 'Imagery Catalog', icon: <Database className="w-3.5 h-3.5" /> },
+    { id: 'imagery-upload', label: 'Ingest Imagery', icon: <UploadCloud className="w-3.5 h-3.5" /> },
     { id: 'ai-analysis', label: 'AI Models', icon: <Cpu className="w-3.5 h-3.5" /> },
     { id: 'parcel-intelligence', label: 'Cadastral Parcels', icon: <LandPlot className="w-3.5 h-3.5" /> },
     { id: 'decision-support', label: 'Decision Support', icon: <BarChart3 className="w-3.5 h-3.5" /> },

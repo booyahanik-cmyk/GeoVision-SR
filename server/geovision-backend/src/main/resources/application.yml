@@ -7,6 +7,12 @@ spring:
     username: postgres
     password: SatyajitDB@1205
 
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 105MB
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -20,3 +26,8 @@ spring:
 jwt:
   secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
   expiration: 86400000
+
+geovision:
+  upload:
+    base-dir: uploads
+    max-file-size: 104857600

@@ -4,6 +4,8 @@ export type ScreenType =
   | 'ai-analysis' 
   | 'parcel-intelligence' 
   | 'decision-support'
+  | 'imagery-catalog'
+  | 'imagery-upload'
   | 'login'
   | 'register';
 
@@ -192,3 +194,25 @@ export interface ValidationExceptionResponseDto {
   path: string;
   fieldErrors: Record<string, string>;
 }
+
+export type ImageryStatus = 'UPLOADED' | 'PROCESSING' | 'PROCESSED' | 'FAILED';
+
+export interface ImageryResponseDto {
+  id: number;
+  filename: string;
+  originalFilePath: string;
+  fileType: string;
+  fileSize: number;
+  uploadedBy: string;
+  uploadTime: string;
+  status: ImageryStatus;
+  width?: number;
+  height?: number;
+  bands?: number;
+  crs?: string;
+  epsg?: string;
+  bbox?: string;
+  enhancedFilePath?: string;
+  enhancementMetadata?: string;
+}
+
