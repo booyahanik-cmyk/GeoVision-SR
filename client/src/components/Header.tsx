@@ -66,32 +66,32 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#060A14]/85 backdrop-blur-xl border-b border-cyan-500/15 text-slate-100 select-none shrink-0 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+    <header className="sticky top-0 z-50 bg-[#030B16]/92 backdrop-blur-xl border-b border-cyan-500/20 text-slate-100 select-none shrink-0 shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
       {/* Top subtle specular edge highlight */}
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent pointer-events-none" />
       
-      <div className="max-w-[1920px] mx-auto px-3 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-2 sm:gap-4 relative">
+      <div className="max-w-[1920px] mx-auto px-2.5 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-1.5 sm:gap-4 relative">
         {/* Left: Brand Logo & Name */}
         <button 
           onClick={() => handleNavClick('landing')}
-          className="flex items-center gap-2 sm:gap-2.5 text-left group focus:outline-none cursor-pointer transition-transform active:scale-[0.98] shrink-0 whitespace-nowrap"
+          className="flex items-center gap-1.5 sm:gap-2.5 text-left group focus:outline-none cursor-pointer transition-transform active:scale-[0.98] shrink-0 min-w-0"
           aria-label="Navigate to GeoVision Overview"
         >
           <img
             src="/assets/logo.png"
             alt="GeoVision-SR Logo"
-            className="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0 mix-blend-screen select-none pointer-events-none"
+            className="w-7 h-7 sm:w-9 sm:h-9 object-contain shrink-0 mix-blend-screen select-none pointer-events-none"
             style={{ mixBlendMode: 'screen' }}
           />
-          <div className="flex items-center gap-1.5 whitespace-nowrap">
-            <span className="text-sm sm:text-base font-bold tracking-tight text-white font-sans whitespace-nowrap">
+          <div className="flex items-center gap-1 truncate">
+            <span className="text-xs sm:text-base font-bold tracking-tight text-white font-sans truncate">
               GeoVision<span className="text-cyan-400 font-medium">-SR</span>
             </span>
           </div>
         </button>
 
         {/* Center: Desktop Navigation Tabs with Animated Floating Indicator */}
-        <nav role="tablist" aria-label="Main navigation" className="hidden md:flex items-center space-x-1 lg:space-x-1.5 relative p-1 rounded-xl bg-slate-950/40 border border-slate-800/60 backdrop-blur-md">
+        <nav role="tablist" aria-label="Main navigation" className="hidden xl:flex items-center space-x-1 lg:space-x-1.5 relative p-1 rounded-xl bg-[#06111F]/80 border border-cyan-500/15 backdrop-blur-md">
           {navItems.map((item) => {
             const isActive = currentScreen === item.id;
             return (
@@ -101,9 +101,9 @@ export const Header: React.FC<HeaderProps> = ({
                 role="tab"
                 aria-selected={isActive}
                 onClick={() => handleNavClick(item.id)}
-                className={`relative text-xs font-medium px-2.5 lg:px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 lg:gap-2 transition-colors cursor-pointer font-sans duration-200 ${
+                className={`relative text-xs font-medium px-3 py-1.5 rounded-lg flex items-center gap-1.5 lg:gap-2 transition-colors cursor-pointer font-sans duration-200 ${
                   isActive
-                    ? 'text-cyan-200 font-semibold'
+                    ? 'text-cyan-300 font-semibold'
                     : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/40'
                 }`}
                 aria-label={`Switch to ${item.label}`}
@@ -112,12 +112,12 @@ export const Header: React.FC<HeaderProps> = ({
                 {isActive && (
                   <motion.div
                     layoutId="activeNavTab"
-                    className="absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-950/80 to-slate-900/90 border border-cyan-400/40 shadow-[0_0_16px_rgba(6,182,212,0.25),inset_0_1px_0_rgba(255,255,255,0.1)] -z-10"
+                    className="absolute inset-0 rounded-lg bg-gradient-to-b from-cyan-950/90 to-[#08182B] border border-cyan-400/50 shadow-[0_0_16px_rgba(0,200,255,0.25),inset_0_1px_0_rgba(255,255,255,0.15)] -z-10"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
                 
-                <span className={`transition-transform duration-200 ${isActive ? 'text-cyan-300 scale-110' : 'text-slate-400'}`}>
+                <span className={`transition-transform duration-200 ${isActive ? 'text-cyan-400 scale-110' : 'text-slate-400'}`}>
                   {item.icon}
                 </span>
                 <span className="whitespace-nowrap">{item.label}</span>
@@ -127,10 +127,10 @@ export const Header: React.FC<HeaderProps> = ({
         </nav>
 
         {/* Right Section: AOI Selector, Auth State / Buttons, Mobile Hamburger */}
-        <div className="flex items-center gap-2 shrink-0">
-          {/* Global AOI Quick Selector Dropdown */}
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          {/* Global AOI Quick Selector Dropdown (compact on small screens, full on tablet/desktop) */}
           {aoiList.length > 0 && onSelectAOI && (
-            <div className="relative flex items-center">
+            <div className="relative hidden sm:flex items-center">
               <Globe2 className="w-3.5 h-3.5 text-cyan-400 absolute left-2.5 pointer-events-none z-10" />
               <select
                 value={activeAOI?.id}
@@ -139,32 +139,32 @@ export const Header: React.FC<HeaderProps> = ({
                   if (target) onSelectAOI(target);
                 }}
                 aria-label="Active Area of Interest selector"
-                className="glass-input text-slate-200 text-xs rounded-xl pl-7 pr-6 py-1.5 cursor-pointer appearance-none border border-cyan-500/20 bg-[#0A101D]/80 font-sans font-medium hover:border-cyan-400/40 transition-colors max-w-[125px] sm:max-w-[160px] truncate"
+                className="glass-input text-slate-200 text-xs rounded-xl pl-7 pr-6 py-1.5 cursor-pointer appearance-none border border-cyan-500/25 bg-[#06111F]/90 font-sans font-medium hover:border-cyan-400/50 transition-colors max-w-[130px] md:max-w-[160px] truncate"
               >
                 {aoiList.map((aoi) => (
-                  <option key={aoi.id} value={aoi.id} className="bg-[#0A101D] text-white">
+                  <option key={aoi.id} value={aoi.id} className="bg-[#06111F] text-white">
                     {aoi.name.split('&')[0].trim()} ({aoi.country})
                   </option>
                 ))}
               </select>
-              <span className="absolute right-2 pointer-events-none text-[8px] text-slate-400">▼</span>
+              <span className="absolute right-2 pointer-events-none text-[8px] text-cyan-400">▼</span>
             </div>
           )}
 
-          {/* SwinIR Active Telemetry Pill (Desktop) */}
-          <div className="hidden 2xl:flex items-center gap-2 px-2.5 py-1 rounded-full bg-cyan-950/30 border border-cyan-500/20 text-xs text-cyan-300 font-sans font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-            <span>SwinIR Pipeline</span>
+          {/* SwinIR Active Telemetry Pill (Large Desktop) */}
+          <div className="hidden 2xl:flex items-center gap-2 px-2.5 py-1 rounded-full bg-cyan-950/40 border border-cyan-400/25 text-xs text-cyan-300 font-sans font-medium shadow-[0_0_12px_rgba(0,200,255,0.12)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(0,200,255,0.8)]" />
+            <span>SwinIR 4× Pipeline</span>
           </div>
 
           {/* Auth State & User Controls */}
           {isAuthenticated && user ? (
-            <div className="flex items-center gap-2 p-1 pl-2 rounded-xl bg-slate-950/50 border border-slate-800/80">
-              <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-cyan-600 to-sky-400 text-slate-950 text-xs font-bold flex items-center justify-center font-sans shadow-[0_0_10px_rgba(6,182,212,0.3)] shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-2 p-1 pl-1.5 sm:pl-2 rounded-xl bg-[#06111F]/90 border border-cyan-500/20">
+              <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-cyan-600 to-sky-400 text-[#030B16] text-xs font-bold flex items-center justify-center font-sans shadow-[0_0_10px_rgba(0,200,255,0.3)] shrink-0">
                 {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
               </div>
-              <div className="hidden xl:flex flex-col text-left leading-tight">
-                <span className="text-xs font-semibold text-slate-200 max-w-[120px] truncate font-sans">
+              <div className="hidden md:flex flex-col text-left leading-tight">
+                <span className="text-xs font-semibold text-slate-200 max-w-[100px] xl:max-w-[120px] truncate font-sans">
                   {user.name}
                 </span>
                 <span className={`text-[9px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded w-fit mt-0.5 border ${getRoleBadgeStyle(user.role)}`}>
@@ -185,29 +185,29 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             </div>
           ) : (
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1 sm:gap-1.5">
               <button
                 type="button"
                 onClick={() => onSelectScreen('login')}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-semibold btn-glow-cyan text-slate-950 flex items-center gap-1.5 cursor-pointer transition-all shrink-0"
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-semibold btn-glow-cyan flex items-center gap-1 sm:gap-1.5 cursor-pointer transition-all shrink-0"
               >
                 <LogIn className="w-3.5 h-3.5" />
-                <span>Sign In</span>
+                <span className="whitespace-nowrap">Sign In</span>
               </button>
               <button
                 type="button"
                 onClick={() => onSelectScreen('register')}
-                className="hidden sm:flex px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-medium btn-glass text-slate-200 hover:text-white items-center gap-1 cursor-pointer border border-cyan-500/20 hover:border-cyan-400/40 transition-all shrink-0"
+                className="hidden sm:flex px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-medium btn-glass text-slate-200 hover:text-white items-center gap-1 cursor-pointer transition-all shrink-0"
               >
                 <span>Register</span>
               </button>
             </div>
           )}
 
-          {/* Mobile Hamburger Toggle Button (md:hidden) */}
+          {/* Mobile & Tablet Hamburger Toggle Button (xl:hidden) */}
           <button
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-            className="md:hidden p-2 rounded-xl glass-panel text-slate-300 hover:text-cyan-300 hover:border-cyan-400/40 transition-colors cursor-pointer"
+            className="xl:hidden p-2 rounded-xl glass-panel text-slate-300 hover:text-cyan-300 hover:border-cyan-400/40 transition-colors cursor-pointer"
             aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
           >
             {isMobileMenuOpen ? <X className="w-4 h-4 text-cyan-400" /> : <Menu className="w-4 h-4 text-slate-300" />}
@@ -223,13 +223,37 @@ export const Header: React.FC<HeaderProps> = ({
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2, ease: 'easeInOut' }}
-            className="md:hidden border-t border-cyan-500/15 bg-[#080D1A]/95 backdrop-blur-2xl px-4 py-3 space-y-2 shadow-[0_12px_32px_rgba(0,0,0,0.8)] overflow-hidden"
+            className="xl:hidden border-t border-cyan-500/20 bg-[#040D1A]/98 backdrop-blur-2xl px-4 py-3.5 space-y-2.5 shadow-[0_16px_40px_rgba(0,0,0,0.85)] max-h-[82vh] overflow-y-auto"
           >
+            {/* Mobile AOI Selector when screen is below sm */}
+            {aoiList.length > 0 && onSelectAOI && (
+              <div className="sm:hidden p-2 rounded-xl bg-[#06111F] border border-cyan-500/20 space-y-1.5">
+                <div className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                  <Globe2 className="w-3 h-3" />
+                  <span>Target AOI</span>
+                </div>
+                <select
+                  value={activeAOI?.id}
+                  onChange={(e) => {
+                    const target = aoiList.find((a) => a.id === e.target.value);
+                    if (target) onSelectAOI(target);
+                  }}
+                  className="w-full text-xs text-slate-200 bg-[#081525] border border-cyan-500/25 rounded-lg px-2.5 py-1.5"
+                >
+                  {aoiList.map((aoi) => (
+                    <option key={aoi.id} value={aoi.id}>
+                      {aoi.name.split('&')[0].trim()} ({aoi.country})
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
             {/* Mobile Auth Section */}
             {isAuthenticated && user ? (
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 mb-2">
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#06111F] border border-cyan-500/20 mb-2">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-600 to-sky-400 text-slate-950 text-xs font-bold flex items-center justify-center font-sans">
+                  <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-600 to-sky-400 text-[#030B16] text-xs font-bold flex items-center justify-center font-sans">
                     {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
                   </div>
                   <div>
@@ -253,11 +277,11 @@ export const Header: React.FC<HeaderProps> = ({
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-2 pb-2 border-b border-slate-800">
+              <div className="grid grid-cols-2 gap-2 pb-2 border-b border-cyan-500/15">
                 <button
                   type="button"
                   onClick={() => handleNavClick('login')}
-                  className="py-2 px-3 rounded-xl text-xs font-semibold btn-glow-cyan text-slate-950 flex items-center justify-center gap-1.5"
+                  className="py-2.5 px-3 rounded-xl text-xs font-semibold btn-glow-cyan flex items-center justify-center gap-1.5"
                 >
                   <LogIn className="w-3.5 h-3.5" />
                   <span>Sign In</span>
@@ -265,36 +289,38 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   type="button"
                   onClick={() => handleNavClick('register')}
-                  className="py-2 px-3 rounded-xl text-xs font-medium btn-glass text-slate-200 flex items-center justify-center gap-1.5 border border-cyan-500/20"
+                  className="py-2.5 px-3 rounded-xl text-xs font-medium btn-glass text-slate-200 flex items-center justify-center gap-1.5"
                 >
                   <span>Register</span>
                 </button>
               </div>
             )}
 
-            {navItems.map((item) => {
-              const isActive = currentScreen === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium transition-all ${
-                    isActive
-                      ? 'bg-gradient-to-r from-cyan-950/80 to-slate-900/90 text-cyan-200 border border-cyan-400/40 shadow-[0_0_12px_rgba(6,182,212,0.2)]'
-                      : 'text-slate-300 hover:bg-slate-850/60 hover:text-white'
-                  }`}
-                  aria-label={`Navigate to ${item.label}`}
-                >
-                  <span className={isActive ? 'text-cyan-400' : 'text-slate-400'}>
-                    {item.icon}
-                  </span>
-                  <span className="font-sans">{item.label}</span>
-                  {isActive && (
-                    <span className="ml-auto w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,0.8)]" />
-                  )}
-                </button>
-              );
-            })}
+            <div className="space-y-1">
+              {navItems.map((item) => {
+                const isActive = currentScreen === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleNavClick(item.id)}
+                    className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all ${
+                      isActive
+                        ? 'bg-gradient-to-r from-cyan-950/90 to-[#08182B] text-cyan-300 border border-cyan-400/50 shadow-[0_0_14px_rgba(0,200,255,0.22)]'
+                        : 'text-slate-300 hover:bg-[#081525] hover:text-white'
+                    }`}
+                    aria-label={`Navigate to ${item.label}`}
+                  >
+                    <span className={isActive ? 'text-cyan-400' : 'text-slate-400'}>
+                      {item.icon}
+                    </span>
+                    <span className="font-sans text-[13px]">{item.label}</span>
+                    {isActive && (
+                      <span className="ml-auto w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(0,200,255,0.8)]" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </motion.nav>
         )}
       </AnimatePresence>
