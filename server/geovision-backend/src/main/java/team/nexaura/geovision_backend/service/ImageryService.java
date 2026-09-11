@@ -23,6 +23,7 @@ public class ImageryService {
     private final FileStorageService fileStorageService;
     private final GdalProcessingService gdalProcessingService;
     private final ImageEnhancementService imageEnhancementService;
+    private final ProcessingProgressPublisher progressPublisher;
 
     public ImageryService(
             ImageryRepository imageryRepository,
@@ -30,7 +31,8 @@ public class ImageryService {
             FileValidationService fileValidationService,
             FileStorageService fileStorageService,
             GdalProcessingService gdalProcessingService,
-            ImageEnhancementService imageEnhancementService
+            ImageEnhancementService imageEnhancementService,
+            ProcessingProgressPublisher progressPublisher
     ) {
         this.imageryRepository = imageryRepository;
         this.imageryMapper = imageryMapper;
@@ -38,6 +40,7 @@ public class ImageryService {
         this.fileStorageService = fileStorageService;
         this.gdalProcessingService = gdalProcessingService;
         this.imageEnhancementService = imageEnhancementService;
+        this.progressPublisher = progressPublisher;
     }
 
     /**
@@ -86,6 +89,12 @@ public class ImageryService {
                 .build();
 
         Imagery savedImagery = imageryRepository.save(imagery);
+
+        // Publish Ingestion Milestones over WebSocket STOMP
+        progressPublisher.publishProgress(savedImagery.getId(), 0, "INGEST_VALIDATED", "Format and security checks passed for " + savedImagery.getFilename());
+        progressPublisher.publishProgress(savedImagery.getId(), 50, "GDAL_PROCESSED", "Metadata extracted: " + (gdalMetadata.width() != null ? gdalMetadata.width() + "x" + gdalMetadata.height() : "Raster") + " px, EPSG:" + (gdalMetadata.epsg() != null ? gdalMetadata.epsg() : "WGS84"));
+        progressPublisher.publishProgress(savedImagery.getId(), 100, "INGEST_COMPLETE", "Satellite imagery successfully stored in repository.");
+
         return imageryMapper.entityToResponseDto(savedImagery);
     }
 

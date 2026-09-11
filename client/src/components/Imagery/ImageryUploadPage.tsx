@@ -19,7 +19,7 @@ import { useAuth } from '../../context/AuthContext';
 
 interface ImageryUploadPageProps {
   onNavigateToCatalog?: () => void;
-  onNavigateToGIS?: () => void;
+  onNavigateToGIS?: (imageryId?: number) => void;
 }
 
 export const ImageryUploadPage: React.FC<ImageryUploadPageProps> = ({
@@ -190,7 +190,10 @@ export const ImageryUploadPage: React.FC<ImageryUploadPageProps> = ({
           {/* Right Column: Upload Card & Recent Uploads Feed */}
           <div className="lg:col-span-7 space-y-5">
             {/* Direct Upload Component */}
-            <ImageryUploadCard onUploadSuccess={handleUploadSuccess} />
+            <ImageryUploadCard 
+              onUploadSuccess={handleUploadSuccess} 
+              onNavigateToGIS={onNavigateToGIS} 
+            />
 
             {/* Session Ingestion Activity */}
             {recentUploads.length > 0 && (

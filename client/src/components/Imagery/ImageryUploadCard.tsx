@@ -15,14 +15,18 @@ import {
 import { imageryService } from '../../services/imageryService';
 import { ImageryResponseDto } from '../../types';
 import { ApiError } from '../../services/api';
+import { ProcessingStatusCard } from './ProcessingStatusCard';
+import { BeforeAfterViewer } from './BeforeAfterViewer';
 
 interface ImageryUploadCardProps {
   onUploadSuccess?: (imagery: ImageryResponseDto) => void;
+  onNavigateToGIS?: (imageryId?: number) => void;
   className?: string;
 }
 
 export const ImageryUploadCard: React.FC<ImageryUploadCardProps> = ({
   onUploadSuccess,
+  onNavigateToGIS,
   className = '',
 }) => {
   const [dragActive, setDragActive] = useState(false);
@@ -33,6 +37,7 @@ export const ImageryUploadCard: React.FC<ImageryUploadCardProps> = ({
   const [successData, setSuccessData] = useState<ImageryResponseDto | null>(null);
   const [isEnhancing, setIsEnhancing] = useState(false);
   const [enhancementNotice, setEnhancementNotice] = useState<string | null>(null);
+  const [showComparisonModal, setShowComparisonModal] = useState<boolean>(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -382,37 +387,78 @@ export const ImageryUploadCard: React.FC<ImageryUploadCardProps> = ({
               <Sliders className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
               <span>Pipeline: Min-Max Normalization → CLAHE → Bilateral Denoise → Sharpening</span>
             </div>
-            <button
-              type="button"
-              onClick={handleEnhanceImagery}
-              disabled={isEnhancing}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer ${
-                isEnhancing
-                  ? 'bg-amber-950/60 text-amber-300 border border-amber-500/40 cursor-wait'
-                  : successData.status === 'PROCESSED'
-                  ? 'bg-slate-800/80 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-950/40 hover:border-emerald-500/50'
-                  : 'bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold hover:brightness-110 shadow-[0_0_12px_rgba(6,182,212,0.3)]'
-              }`}
-            >
-              {isEnhancing ? (
-                <>
-                  <RotateCw className="w-3.5 h-3.5 animate-spin" />
-                  <span>Enhancing Raster...</span>
-                </>
-              ) : successData.status === 'PROCESSED' ? (
-                <>
-                  <Wand2 className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Re-run Enhancement</span>
-                </>
-              ) : (
-                <>
-                  <Wand2 className="w-3.5 h-3.5" />
-                  <span>Run Image Enhancement</span>
-                </>
+              {successData.status === 'PROCESSED' && (
+                <button
+                  type="button"
+                  onClick={() => setShowComparisonModal(true)}
+                  className="px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer bg-cyan-950/60 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-900/50 hover:border-cyan-400"
+                >
+                  <Sliders className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Compare Before/After</span>
+                </button>
               )}
-            </button>
+              <button
+                type="button"
+                onClick={handleEnhanceImagery}
+                disabled={isEnhancing}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer ${
+                  isEnhancing
+                    ? 'bg-amber-950/60 text-amber-300 border border-amber-500/40 cursor-wait'
+                    : successData.status === 'PROCESSED'
+                    ? 'bg-slate-800/80 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-950/40 hover:border-emerald-500/50'
+                    : 'bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold hover:brightness-110 shadow-[0_0_12px_rgba(6,182,212,0.3)]'
+                }`}
+              >
+                {isEnhancing ? (
+                  <>
+                    <RotateCw className="w-3.5 h-3.5 animate-spin" />
+                    <span>Enhancing Raster...</span>
+                  </>
+                ) : successData.status === 'PROCESSED' ? (
+                  <>
+                    <Wand2 className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Re-run Enhancement</span>
+                  </>
+                ) : (
+                  <>
+                    <Wand2 className="w-3.5 h-3.5" />
+                    <span>Run Image Enhancement</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
-        </div>
+        )}
+
+      {/* Phase 7: Real-Time Processing Updates Telemetry Card */}
+      {successData && (
+        <ProcessingStatusCard
+          imageryId={successData.id}
+          filename={successData.filename}
+          initialPercentage={successData.status === 'PROCESSED' ? 100 : (isEnhancing ? 25 : 0)}
+          initialStage={successData.status === 'PROCESSED' ? 'COMPLETED' : (isEnhancing ? 'NORMALIZATION' : 'UPLOADED')}
+          initialMessage={
+            successData.status === 'PROCESSED'
+              ? 'Raster enhancement complete. Ready for GIS mapping and Before/After inspection.'
+              : isEnhancing
+              ? 'Executing 4-stage OpenCV enhancement pipeline...'
+              : 'Satellite imagery successfully ingested into repository.'
+          }
+          onCompleted={() => {
+            imageryService.getImageryById(successData.id).then((fresh) => {
+              setSuccessData(fresh);
+            }).catch(() => {});
+          }}
+          onOpenInGIS={() => {
+            if (onNavigateToGIS) {
+              onNavigateToGIS(successData.id);
+            }
+          }}
+          onOpenComparison={() => {
+            setShowComparisonModal(true);
+          }}
+          className="mt-4"
+        />
       )}
 
       {/* Action Footer */}
@@ -450,6 +496,23 @@ export const ImageryUploadCard: React.FC<ImageryUploadCardProps> = ({
           )}
         </button>
       </div>
+
+      {/* Phase 6: Before/After Comparison Modal */}
+      {showComparisonModal && successData && (
+        <BeforeAfterViewer
+          isModal={true}
+          onClose={() => setShowComparisonModal(false)}
+          imageryId={successData.id}
+          imageryTitle={`Raster Comparison • ${successData.filename}`}
+          metadata={{
+            width: successData.width,
+            height: successData.height,
+            bands: successData.bands,
+            epsg: successData.epsg,
+            status: successData.status,
+          }}
+        />
+      )}
     </div>
   );
 };

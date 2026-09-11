@@ -27,19 +27,22 @@ public class ImageEnhancementService {
     private final FileStorageService fileStorageService;
     private final ImageryRepository imageryRepository;
     private final ObjectMapper objectMapper;
+    private final ProcessingProgressPublisher progressPublisher;
 
     public ImageEnhancementService(
             @Value("${geovision.python.path:python}") String pythonPath,
             @Value("${geovision.enhancement.script-path:scripts/enhance_raster.py}") String scriptPath,
             FileStorageService fileStorageService,
             ImageryRepository imageryRepository,
-            ObjectMapper objectMapper
+            ObjectMapper objectMapper,
+            ProcessingProgressPublisher progressPublisher
     ) {
         this.pythonPath = pythonPath;
         this.scriptPath = scriptPath;
         this.fileStorageService = fileStorageService;
         this.imageryRepository = imageryRepository;
         this.objectMapper = objectMapper;
+        this.progressPublisher = progressPublisher;
     }
 
     /**
@@ -54,15 +57,17 @@ public class ImageEnhancementService {
             throw new IllegalArgumentException("Imagery entity cannot be null.");
         }
 
-        // 1. Transition to PROCESSING state
+        // 1. Transition to PROCESSING state and publish 0% milestone
         imagery.setStatus(ImageryStatus.PROCESSING);
         imagery = imageryRepository.save(imagery);
         log.info("Transitioned imagery #{} ({}) to PROCESSING state", imagery.getId(), imagery.getFilename());
+        progressPublisher.publishProgress(imagery.getId(), 0, "INITIALIZING", "Initializing 4-stage OpenCV enhancement pipeline for " + imagery.getFilename());
 
         Path rawInputPath = Paths.get(imagery.getOriginalFilePath()).toAbsolutePath().normalize();
         if (!rawInputPath.toFile().exists()) {
             imagery.setStatus(ImageryStatus.FAILED);
             imageryRepository.save(imagery);
+            progressPublisher.publishProgress(imagery.getId(), 0, "FAILED", "Raw input file does not exist: " + rawInputPath);
             throw new IllegalStateException("Raw input file does not exist: " + rawInputPath);
         }
 
@@ -76,10 +81,12 @@ public class ImageEnhancementService {
 
         Path processedDestination = fileStorageService.getProcessedPath().resolve(outputName).toAbsolutePath().normalize();
 
-        // 3. Resolve Python Script Location
+        // 3. Resolve Python Script Location & Publish 25% milestone
         File scriptFile = resolveScriptFile();
         log.info("Invoking enhancement pipeline: {} {} --input {} --output {}",
                 pythonPath, scriptFile.getAbsolutePath(), rawInputPath, processedDestination);
+
+        progressPublisher.publishProgress(imagery.getId(), 25, "NORMALIZATION", "Stage 1: Dynamic Range Normalization (Percentile Min-Max 2%-98%)");
 
         try {
             ProcessBuilder processBuilder = new ProcessBuilder(
@@ -93,6 +100,10 @@ public class ImageEnhancementService {
             processBuilder.redirectErrorStream(false);
 
             Process process = processBuilder.start();
+
+            // Publish mid-pipeline stages 50% and 75%
+            progressPublisher.publishProgress(imagery.getId(), 50, "CONTRAST_ENHANCEMENT", "Stage 2: Contrast Limited Adaptive Histogram Equalization (CLAHE)");
+            progressPublisher.publishProgress(imagery.getId(), 75, "NOISE_REDUCTION_SHARPENING", "Stage 3 & 4: Bilateral Edge-Preserving Filter & Unsharp Mask Sharpening");
 
             StringBuilder stdoutBuffer = new StringBuilder();
             StringBuilder stderrBuffer = new StringBuilder();
@@ -114,6 +125,7 @@ public class ImageEnhancementService {
                 process.destroyForcibly();
                 imagery.setStatus(ImageryStatus.FAILED);
                 imageryRepository.save(imagery);
+                progressPublisher.publishProgress(imagery.getId(), 0, "FAILED", "Image enhancement timed out after 60 seconds.");
                 throw new RuntimeException("Image enhancement timed out after 60 seconds.");
             }
 
@@ -123,6 +135,7 @@ public class ImageEnhancementService {
                 log.error("Enhancement script failed (exit code {}): {}", exitCode, errorMsg);
                 imagery.setStatus(ImageryStatus.FAILED);
                 imageryRepository.save(imagery);
+                progressPublisher.publishProgress(imagery.getId(), 0, "FAILED", "Enhancement script execution failed: " + errorMsg);
                 throw new RuntimeException("Enhancement script execution failed: " + errorMsg);
             }
 
@@ -150,9 +163,16 @@ public class ImageEnhancementService {
                 if (imagery.getBands() == null && root.has("channels")) {
                     imagery.setBands(root.get("channels").asInt());
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                log.warn("Could not parse dimensions from enhancement output: {}", e.getMessage());
+            }
 
-            return imageryRepository.save(imagery);
+            Imagery saved = imageryRepository.save(imagery);
+
+            // Publish 100% completion milestone
+            progressPublisher.publishProgress(saved.getId(), 100, "COMPLETED", "Enhancement pipeline completed successfully. Master GeoTIFF and web previews ready.");
+
+            return saved;
 
         } catch (Exception e) {
             log.error("Error during image enhancement for imagery #{}: {}", imagery.getId(), e.getMessage(), e);

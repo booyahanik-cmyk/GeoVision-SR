@@ -97,7 +97,11 @@ public class SecurityConfig {
                                 "/error",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
-                                "/v3/api-docs/**"
+                                "/v3/api-docs/**",
+                                "/ws-progress",
+                                "/ws-progress/**",
+                                "/api/v1/imagery/*/preview/**",
+                                "/api/v1/imagery/*/preview/*"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
